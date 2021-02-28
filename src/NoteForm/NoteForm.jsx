@@ -6,8 +6,25 @@ class NoteForm extends Component {
         super()
 
         this.state = {
-
+            newNoteContent: "",
         }
+
+        this.handleUserInput = this.handleUserInput.bind(this)
+        this.writeNote = this.writeNote.bind(this)
+    }
+
+    handleUserInput(e){
+        this.setState({
+            newNoteContent: e.target.value,
+        })
+    }
+
+    writeNote(){
+        this.props.addNote(this.state.newNoteContent)
+
+        this.setState({
+            newNoteContent: "",
+        })
     }
 
     render(){
@@ -17,8 +34,15 @@ class NoteForm extends Component {
                     className="noteInput"
                     placeholder="Write new note..."
                     type="text"
+                    value={this.state.newNoteContent}
+                    onChange={this.handleUserInput}
                 />
-                <button className="noteButton">Add Note</button>
+                <button 
+                    className="noteButton"
+                    onClick={this.writeNote}
+                >
+                    Add Note
+                </button>
             </div>
         )
     }
